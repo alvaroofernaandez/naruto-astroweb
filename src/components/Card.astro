@@ -1,0 +1,18 @@
+---
+const response = await fetch('https://dattebayo-api.onrender.com/characters');
+const data = await response.json();
+const characters = data.characters;
+let visibleCharacters = characters.slice(0, 8);
+
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center ">
+  {visibleCharacters.map((character: { id: number; name: string; images: string[] }, index: number) => (
+    <div class="relative overflow-hidden w-60 h-80 rounded-3xl cursor-pointer text-2xl font-bold bg-orange-400" {...{ key: index }}>
+      <img src={character.images[0]} alt={character.name} class="w-full h-full object-cover" />
+      <div class="absolute inset-0 flex items-center justify-center bg-orange-300 opacity-0 transition-opacity duration-300 hover:opacity-100">
+        <div class="uppercase text-xl">{character.name}</div>
+      </div>
+    </div>
+  ))}
+</div>
